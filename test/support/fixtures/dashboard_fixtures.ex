@@ -15,7 +15,7 @@ defmodule TxDashboard.DashboardFixtures do
         last_name: "some last_name",
         name: "some name"
       })
-      |> TxDashboard.Dashboard.create_account()
+      |> TxDashboard.Dashboard.Accounts.create_account()
 
     account
   end
@@ -33,7 +33,7 @@ defmodule TxDashboard.DashboardFixtures do
         origin: "some origin",
         type: "some type"
       })
-      |> TxDashboard.Dashboard.create_transaction()
+      |> TxDashboard.Dashboard.Transactions.create_transaction()
 
     transaction
   end

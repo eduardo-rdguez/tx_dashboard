@@ -1,8 +1,8 @@
 defmodule TxDashboardWeb.TransactionLive.Index do
   use TxDashboardWeb, :live_view
 
-  alias TxDashboard.Dashboard
-  alias TxDashboard.Dashboard.Transaction
+  alias TxDashboard.Dashboard.Transactions
+  alias TxDashboard.Schema.Transaction
 
   @impl true
   def mount(_params, _session, socket) do
@@ -17,7 +17,7 @@ defmodule TxDashboardWeb.TransactionLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Transaction")
-    |> assign(:transaction, Dashboard.get_transaction!(id))
+    |> assign(:transaction, Transactions.get_transaction!(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -34,13 +34,13 @@ defmodule TxDashboardWeb.TransactionLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    transaction = Dashboard.get_transaction!(id)
-    {:ok, _} = Dashboard.delete_transaction(transaction)
+    transaction = Transactions.get_transaction!(id)
+    {:ok, _} = Transactions.delete_transaction(transaction)
 
     {:noreply, assign(socket, :transactions, list_transactions())}
   end
 
   defp list_transactions do
-    Dashboard.list_transactions()
+    Transactions.list_transactions()
   end
 end

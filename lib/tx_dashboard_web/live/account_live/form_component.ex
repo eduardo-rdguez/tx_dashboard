@@ -1,11 +1,11 @@
 defmodule TxDashboardWeb.AccountLive.FormComponent do
   use TxDashboardWeb, :live_component
 
-  alias TxDashboard.Dashboard
+  alias TxDashboard.Dashboard.Accounts
 
   @impl true
   def update(%{account: account} = assigns, socket) do
-    changeset = Dashboard.change_account(account)
+    changeset = Accounts.change_account(account)
 
     {:ok,
      socket
@@ -17,7 +17,7 @@ defmodule TxDashboardWeb.AccountLive.FormComponent do
   def handle_event("validate", %{"account" => account_params}, socket) do
     changeset =
       socket.assigns.account
-      |> Dashboard.change_account(account_params)
+      |> Accounts.change_account(account_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
@@ -28,7 +28,7 @@ defmodule TxDashboardWeb.AccountLive.FormComponent do
   end
 
   defp save_account(socket, :edit, account_params) do
-    case Dashboard.update_account(socket.assigns.account, account_params) do
+    case Accounts.update_account(socket.assigns.account, account_params) do
       {:ok, _account} ->
         {:noreply,
          socket
@@ -41,7 +41,7 @@ defmodule TxDashboardWeb.AccountLive.FormComponent do
   end
 
   defp save_account(socket, :new, account_params) do
-    case Dashboard.create_account(account_params) do
+    case Accounts.create_account(account_params) do
       {:ok, _account} ->
         {:noreply,
          socket

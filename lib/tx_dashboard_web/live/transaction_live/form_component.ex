@@ -1,11 +1,11 @@
 defmodule TxDashboardWeb.TransactionLive.FormComponent do
   use TxDashboardWeb, :live_component
 
-  alias TxDashboard.Dashboard
+  alias TxDashboard.Dashboard.Transactions
 
   @impl true
   def update(%{transaction: transaction} = assigns, socket) do
-    changeset = Dashboard.change_transaction(transaction)
+    changeset = Transactions.change_transaction(transaction)
 
     {:ok,
      socket
@@ -17,7 +17,7 @@ defmodule TxDashboardWeb.TransactionLive.FormComponent do
   def handle_event("validate", %{"transaction" => transaction_params}, socket) do
     changeset =
       socket.assigns.transaction
-      |> Dashboard.change_transaction(transaction_params)
+      |> Transactions.change_transaction(transaction_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
@@ -28,7 +28,7 @@ defmodule TxDashboardWeb.TransactionLive.FormComponent do
   end
 
   defp save_transaction(socket, :edit, transaction_params) do
-    case Dashboard.update_transaction(socket.assigns.transaction, transaction_params) do
+    case Transactions.update_transaction(socket.assigns.transaction, transaction_params) do
       {:ok, _transaction} ->
         {:noreply,
          socket
@@ -41,7 +41,7 @@ defmodule TxDashboardWeb.TransactionLive.FormComponent do
   end
 
   defp save_transaction(socket, :new, transaction_params) do
-    case Dashboard.create_transaction(transaction_params) do
+    case Transactions.create_transaction(transaction_params) do
       {:ok, _transaction} ->
         {:noreply,
          socket

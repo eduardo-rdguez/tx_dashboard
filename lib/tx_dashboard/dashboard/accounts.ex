@@ -6,7 +6,7 @@ defmodule TxDashboard.Dashboard.Accounts do
   import Ecto.Query, warn: false
   alias TxDashboard.Repo
 
-  alias TxDashboard.Dashboard.Account
+  alias TxDashboard.Schema.Account
 
   @doc """
   Returns the list of accounts.

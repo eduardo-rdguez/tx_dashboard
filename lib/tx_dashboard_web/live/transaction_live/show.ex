@@ -1,7 +1,7 @@
 defmodule TxDashboardWeb.TransactionLive.Show do
   use TxDashboardWeb, :live_view
 
-  alias TxDashboard.Dashboard
+  alias TxDashboard.Dashboard.Transactions
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,7 +13,7 @@ defmodule TxDashboardWeb.TransactionLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:transaction, Dashboard.get_transaction!(id))}
+     |> assign(:transaction, Transactions.get_transaction!(id))}
   end
 
   defp page_title(:show), do: "Show Transaction"

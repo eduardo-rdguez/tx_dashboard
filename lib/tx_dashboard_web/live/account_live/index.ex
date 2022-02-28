@@ -1,8 +1,8 @@
 defmodule TxDashboardWeb.AccountLive.Index do
   use TxDashboardWeb, :live_view
 
-  alias TxDashboard.Dashboard
-  alias TxDashboard.Dashboard.Account
+  alias TxDashboard.Dashboard.Accounts
+  alias TxDashboard.Schema.Account
 
   @impl true
   def mount(_params, _session, socket) do
@@ -17,7 +17,7 @@ defmodule TxDashboardWeb.AccountLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Account")
-    |> assign(:account, Dashboard.get_account!(id))
+    |> assign(:account, Accounts.get_account!(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -34,13 +34,13 @@ defmodule TxDashboardWeb.AccountLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    account = Dashboard.get_account!(id)
-    {:ok, _} = Dashboard.delete_account(account)
+    account = Accounts.get_account!(id)
+    {:ok, _} = Accounts.delete_account(account)
 
     {:noreply, assign(socket, :accounts, list_accounts())}
   end
 
   defp list_accounts do
-    Dashboard.list_accounts()
+    Accounts.list_accounts()
   end
 end

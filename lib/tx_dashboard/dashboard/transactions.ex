@@ -6,7 +6,7 @@ defmodule TxDashboard.Dashboard.Transactions do
   import Ecto.Query, warn: false
   alias TxDashboard.Repo
 
-  alias TxDashboard.Dashboard.Transaction
+  alias TxDashboard.Schema.Transaction
 
   @doc """
   Returns the list of transactions.
