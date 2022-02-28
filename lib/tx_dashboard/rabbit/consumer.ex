@@ -6,6 +6,8 @@ defmodule TxDashboard.Rabbit.Consumer do
   use GenServer
   use AMQP
 
+  alias TxDashboard.Util.JsonUtil
+
   def start_link do
     GenServer.start_link(__MODULE__, [], [])
   end
@@ -29,9 +31,9 @@ defmodule TxDashboard.Rabbit.Consumer do
     {:noreply, chan}
   end
 
-  def handle_info({:basic_deliver, payload, %{delivery_tag: tag, redelivered: redelivered}}, chan) do
+  def handle_info({:basic_deliver, payload, %{delivery_tag: tag, redelivered: _redelivered}}, chan) do
     # You might want to run payload consumption in separate Tasks in production
-    IO.inspect(binding())
+    JsonUtil.decode(payload)
     :ok = Basic.ack(chan, tag)
     {:noreply, chan}
   end
