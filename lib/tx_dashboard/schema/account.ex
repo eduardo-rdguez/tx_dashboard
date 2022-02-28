@@ -1,4 +1,4 @@
-defmodule TxDashboard.Dashboard.Account do
+defmodule TxDashboard.Schema.Account do
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -60,4 +60,66 @@ defmodule TxDashboard.DashboardTest do
       assert %Ecto.Changeset{} = Dashboard.change_account(account)
     end
   end
+
+  describe "transactions" do
+    alias TxDashboard.Dashboard.Transaction
+
+    import TxDashboard.DashboardFixtures
+
+    @invalid_attrs %{amount: nil, concept: nil, currency: nil, origin: nil, type: nil}
+
+    test "list_transactions/0 returns all transactions" do
+      transaction = transaction_fixture()
+      assert Dashboard.list_transactions() == [transaction]
+    end
+
+    test "get_transaction!/1 returns the transaction with given id" do
+      transaction = transaction_fixture()
+      assert Dashboard.get_transaction!(transaction.id) == transaction
+    end
+
+    test "create_transaction/1 with valid data creates a transaction" do
+      valid_attrs = %{amount: 120.5, concept: "some concept", currency: "some currency", origin: "some origin", type: "some type"}
+
+      assert {:ok, %Transaction{} = transaction} = Dashboard.create_transaction(valid_attrs)
+      assert transaction.amount == 120.5
+      assert transaction.concept == "some concept"
+      assert transaction.currency == "some currency"
+      assert transaction.origin == "some origin"
+      assert transaction.type == "some type"
+    end
+
+    test "create_transaction/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Dashboard.create_transaction(@invalid_attrs)
+    end
+
+    test "update_transaction/2 with valid data updates the transaction" do
+      transaction = transaction_fixture()
+      update_attrs = %{amount: 456.7, concept: "some updated concept", currency: "some updated currency", origin: "some updated origin", type: "some updated type"}
+
+      assert {:ok, %Transaction{} = transaction} = Dashboard.update_transaction(transaction, update_attrs)
+      assert transaction.amount == 456.7
+      assert transaction.concept == "some updated concept"
+      assert transaction.currency == "some updated currency"
+      assert transaction.origin == "some updated origin"
+      assert transaction.type == "some updated type"
+    end
+
+    test "update_transaction/2 with invalid data returns error changeset" do
+      transaction = transaction_fixture()
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update_transaction(transaction, @invalid_attrs)
+      assert transaction == Dashboard.get_transaction!(transaction.id)
+    end
+
+    test "delete_transaction/1 deletes the transaction" do
+      transaction = transaction_fixture()
+      assert {:ok, %Transaction{}} = Dashboard.delete_transaction(transaction)
+      assert_raise Ecto.NoResultsError, fn -> Dashboard.get_transaction!(transaction.id) end
+    end
+
+    test "change_transaction/1 returns a transaction changeset" do
+      transaction = transaction_fixture()
+      assert %Ecto.Changeset{} = Dashboard.change_transaction(transaction)
+    end
+  end
 end

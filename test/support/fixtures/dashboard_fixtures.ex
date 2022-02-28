@@ -19,4 +19,22 @@ defmodule TxDashboard.DashboardFixtures do
 
     account
   end
+
+  @doc """
+  Generate a transaction.
+  """
+  def transaction_fixture(attrs \\ %{}) do
+    {:ok, transaction} =
+      attrs
+      |> Enum.into(%{
+        amount: 120.5,
+        concept: "some concept",
+        currency: "some currency",
+        origin: "some origin",
+        type: "some type"
+      })
+      |> TxDashboard.Dashboard.create_transaction()
+
+    transaction
+  end
 end
