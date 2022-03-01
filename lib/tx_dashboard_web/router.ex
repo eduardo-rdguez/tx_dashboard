@@ -20,6 +20,24 @@ defmodule TxDashboardWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/transactions", TxDashboardWeb do
+    live "/", TransactionLive.Index, :index
+    live "/new", TransactionLive.Index, :new
+    live "/:id/edit", TransactionLive.Index, :edit
+
+    live "/:id", TransactionLive.Show, :show
+    live "/:id/show/edit", TransactionLive.Show, :edit
+  end
+
+  scope "/accounts" do
+    live "/", AccountLive.Index, :index
+    live "/new", AccountLive.Index, :new
+    live "/:id/edit", AccountLive.Index, :edit
+
+    live "/:id", AccountLive.Show, :show
+    live "/:id/show/edit", AccountLive.Show, :edit
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TxDashboardWeb do
   #   pipe_through :api
