@@ -8,7 +8,7 @@ defmodule TxDashboard.Repo.Migrations.CreateTransactions do
       add :concept, :string
       add :amount, :float
       add :currency, :string
-      add :account_id, references(:accounts, on_delete: :nothing)
+      add :account_id, references(:accounts, on_delete: :nothing), null: false
 
       timestamps()
     end
