@@ -101,4 +101,9 @@ defmodule TxDashboard.Dashboard.Accounts do
   def change_account(%Account{} = account, attrs \\ %{}) do
     Account.changeset(account, attrs)
   end
+
+  def find_by_account_number(account_number, query \\ __MODULE__) do
+    from query, where: [account: ^account_number]
+    Repo.one!(query)
+  end
 end
