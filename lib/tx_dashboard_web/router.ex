@@ -38,6 +38,12 @@ defmodule TxDashboardWeb.Router do
     live "/:id/show/edit", AccountLive.Show, :edit
   end
 
+  scope "/balances", TxDashboardWeb do
+    pipe_through :browser
+
+    live "/:account_number", Balance.BalanceLive, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TxDashboardWeb do
   #   pipe_through :api
