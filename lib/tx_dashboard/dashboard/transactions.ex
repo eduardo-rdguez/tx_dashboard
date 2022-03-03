@@ -9,6 +9,8 @@ defmodule TxDashboard.Dashboard.Transactions do
   alias TxDashboard.Schema.Transaction
   alias TxDashboard.Dashboard.Accounts
 
+  @topic "transactions"
+
   @doc """
   Returns the list of transactions.
 
@@ -116,5 +118,10 @@ defmodule TxDashboard.Dashboard.Transactions do
     |> Transaction.for_account()
     |> change_transaction(params)
     |> Repo.insert!()
+    |> push_tx(account_number)
+  end
+
+  defp push_tx(%Transaction{} = transaction, account_number) do
+    Phoenix.PubSub.broadcast(TxDashboard.PubSub, @topic <> ":" <> account_number, transaction)
   end
 end
