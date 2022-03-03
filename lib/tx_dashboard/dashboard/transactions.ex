@@ -105,10 +105,10 @@ defmodule TxDashboard.Dashboard.Transactions do
 
   @doc """
     account_number
-    |> Ecto.Query
-    |> Transaction w/ID Account
+    |> TxDashboard.Dashboard.Accounts
+    |> TxDashboard.Dashboard.Transaction w/ID Account
     |> Changeset Transaction
-    |> Insert
+    |> Insert -> Transaction
   """
   def apply_transaction(%{"account" => account_number} = params) do
     account_number

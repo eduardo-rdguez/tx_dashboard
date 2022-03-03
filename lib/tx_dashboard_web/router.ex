@@ -23,23 +23,23 @@ defmodule TxDashboardWeb.Router do
   scope "/transactions", TxDashboardWeb do
     pipe_through :browser
 
-    live "/", TransactionLive.Index, :index
-    live "/new", TransactionLive.Index, :new
-    live "/:id/edit", TransactionLive.Index, :edit
+    live "/", Transaction.TransactionLive, :index
+    live "/new", Transaction.TransactionLive, :new
+    live "/:id/edit", Transaction.TransactionLive, :edit
 
-    live "/:id", TransactionLive.Show, :show
-    live "/:id/show/edit", TransactionLive.Show, :edit
+    live "/:id", Transaction.ShowLive, :show
+    live "/:id/show/edit", Transaction.ShowLive, :edit
   end
 
   scope "/accounts", TxDashboardWeb do
     pipe_through :browser
 
-    live "/", AccountLive.Index, :index
-    live "/new", AccountLive.Index, :new
-    live "/:id/edit", AccountLive.Index, :edit
+    live "/", Account.AccountLive, :index
+    live "/new", Account.AccountLive, :new
+    live "/:id/edit", Account.AccountLive, :edit
 
-    live "/:id", AccountLive.Show, :show
-    live "/:id/show/edit", AccountLive.Show, :edit
+    live "/:id", Account.ShowLive, :show
+    live "/:id/show/edit", Account.ShowLive, :edit
   end
 
   scope "/balances", TxDashboardWeb do

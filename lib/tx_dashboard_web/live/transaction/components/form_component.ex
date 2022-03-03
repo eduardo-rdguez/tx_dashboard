@@ -1,4 +1,4 @@
-defmodule TxDashboardWeb.TransactionLive.FormComponent do
+defmodule TxDashboardWeb.Transaction.Components.FormComponent do
   use TxDashboardWeb, :live_component
 
   alias TxDashboard.Dashboard.Transactions
