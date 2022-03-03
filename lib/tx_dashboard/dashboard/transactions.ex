@@ -7,6 +7,7 @@ defmodule TxDashboard.Dashboard.Transactions do
   alias TxDashboard.Repo
 
   alias TxDashboard.Schema.Transaction
+  alias TxDashboard.Dashboard.Accounts
 
   @doc """
   Returns the list of transactions.
@@ -100,5 +101,20 @@ defmodule TxDashboard.Dashboard.Transactions do
   """
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
+  end
+
+  @doc """
+    account_number
+    |> Ecto.Query
+    |> Transaction w/ID Account
+    |> Changeset Transaction
+    |> Insert
+  """
+  def apply_transaction(%{"account" => account_number} = params) do
+    account_number
+    |> Accounts.find_by_account_number()
+    |> Transaction.for_account()
+    |> change_transaction(params)
+    |> Repo.insert!()
   end
 end

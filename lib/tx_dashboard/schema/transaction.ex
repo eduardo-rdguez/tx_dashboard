@@ -24,4 +24,9 @@ defmodule TxDashboard.Schema.Transaction do
     |> validate_required([:type, :origin, :concept, :amount, :currency, :account_id])
     |> foreign_key_constraint(:account_id)
   end
+
+  def for_account(%Account{} = account, params \\ %{}) do
+    account
+    |> Ecto.build_assoc(:transactions, params)
+  end
 end

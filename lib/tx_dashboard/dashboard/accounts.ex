@@ -102,8 +102,8 @@ defmodule TxDashboard.Dashboard.Accounts do
     Account.changeset(account, attrs)
   end
 
-  def find_by_account_number(account_number, query \\ __MODULE__) do
-    from query, where: [account: ^account_number]
-    Repo.one!(query)
+  def find_by_account_number(account_number) do
+    from(Account, where: [account: ^account_number])
+    |> Repo.one!()
   end
 end
