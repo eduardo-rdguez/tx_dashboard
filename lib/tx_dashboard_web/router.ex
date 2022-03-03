@@ -21,6 +21,8 @@ defmodule TxDashboardWeb.Router do
   end
 
   scope "/transactions", TxDashboardWeb do
+    pipe_through :browser
+
     live "/", TransactionLive.Index, :index
     live "/new", TransactionLive.Index, :new
     live "/:id/edit", TransactionLive.Index, :edit
@@ -29,7 +31,9 @@ defmodule TxDashboardWeb.Router do
     live "/:id/show/edit", TransactionLive.Show, :edit
   end
 
-  scope "/accounts" do
+  scope "/accounts", TxDashboardWeb do
+    pipe_through :browser
+
     live "/", AccountLive.Index, :index
     live "/new", AccountLive.Index, :new
     live "/:id/edit", AccountLive.Index, :edit
