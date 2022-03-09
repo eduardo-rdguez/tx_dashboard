@@ -2,6 +2,7 @@ defmodule TxDashboardWeb.Balance.BalanceLive do
   use TxDashboardWeb, :live_view
 
   alias TxDashboard.Dashboard.Transactions
+  alias TxDashboard.Schema.Transaction
 
   @topic "transactions"
 
@@ -14,8 +15,11 @@ defmodule TxDashboardWeb.Balance.BalanceLive do
   end
 
   @impl true
-  def handle_info(message, socket) do
-    IO.inspect(message)
+  def handle_info(%Transaction{} = transaction, socket) do
+    socket =
+      socket
+      |> update(:transactions, &[transaction | &1])
+
     {:noreply, socket}
   end
 end
