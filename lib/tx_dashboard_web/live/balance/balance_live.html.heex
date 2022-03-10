@@ -33,7 +33,7 @@
 </table>
 
 <button class="button-clear" {[disabled: @page_params.page <= 1, phx_click: "paginate", phx_value_page: @page_params.page - 1]}>Previous</button>
-<%= for p <- (@page_params.page - 3)..(@page_params.page + 3), p > 0 and p <= @page_params.total_pages do %>
+<%= for p <- (@page_params.page - 2)..(@page_params.page + 2), p > 0 and p <= @page_params.total_pages do %>
   <button class="button-clear" {[disabled: @page_params.page == p, phx_click: "paginate", phx_value_page: p]}><%= p %></button>
 <% end %>
 <button class="button-clear" {[disabled: @page_params.page >= @page_params.total_pages, phx_click: "paginate", phx_value_page: @page_params.page + 1]}>Next</button>
