@@ -103,7 +103,7 @@ defmodule TxDashboard.Dashboard.Accounts do
   end
 
   def find_by_account_number(account_number) do
-    from(Account, where: [account: ^account_number])
+    Account.by_account_number(account_number)
     |> Repo.one!()
   end
 end
