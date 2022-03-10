@@ -115,7 +115,7 @@ defmodule TxDashboard.Dashboard.Transactions do
   def apply_transaction(%{"account" => account_number} = params) do
     account_number
     |> Accounts.find_by_account_number()
-    |> Transaction.for_account()
+    |> Transaction.assoc_account()
     |> change_transaction(params)
     |> Repo.insert!()
     |> push_tx(account_number)
@@ -126,10 +126,7 @@ defmodule TxDashboard.Dashboard.Transactions do
   end
 
   def list_by_account_number(account_number, page_params \\ %{}) do
-    Transaction
-    |> join(:inner, [a], assoc(a, :account), as: :account)
-    |> where([account: a], a.account == ^account_number)
-    |> order_by([desc: :inserted_at])
+    Transaction.by_account_number(account_number)
     |> Repo.paginate(page_params)
   end
 end

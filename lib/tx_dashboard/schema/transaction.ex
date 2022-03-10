@@ -1,7 +1,9 @@
 defmodule TxDashboard.Schema.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
+  alias TxDashboard.Schema.Transaction
   alias TxDashboard.Schema.Account
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -25,8 +27,15 @@ defmodule TxDashboard.Schema.Transaction do
     |> foreign_key_constraint(:account_id)
   end
 
-  def for_account(%Account{} = account, params \\ %{}) do
+  def assoc_account(%Account{} = account, params \\ %{}) do
     account
     |> Ecto.build_assoc(:transactions, params)
+  end
+
+  def by_account_number(account_number) do
+    Transaction
+    |> join(:inner, [a], assoc(a, :account), as: :account)
+    |> where([account: a], a.account == ^account_number)
+    |> order_by([desc: :inserted_at])
   end
 end
