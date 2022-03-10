@@ -4,5 +4,6 @@ defmodule TxDashboard.Repo do
     adapter: Ecto.Adapters.Postgres
 
   use Scrivener,
-    page_size: 10
+    page_size: 10,
+    max_page_size: 100
 end
