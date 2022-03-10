@@ -45,10 +45,33 @@ defmodule TxDashboardWeb.Balance.BalanceLive do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_event("paginate", %{"page" => page}, socket) do
+    socket =
+      socket.assigns.page_params
+      |> Map.replace!(:page, String.to_integer(page))
+      |> push_params(socket)
+
+    {:noreply, socket}
+  end
+
   defp page_params(params) do
     %{
-      page: params["page"] || 1,
-      page_size: params["page_size"] || 5
+      page: String.to_integer(params["page"] || "1"),
+      page_size: String.to_integer(params["page_size"] || "5")
     }
+  end
+
+  defp push_params(page_params, %{assigns: %{account_number: account_number}} = socket) do
+    push_patch(socket,
+      to:
+        Routes.balance_path(
+          socket,
+          :index,
+          account_number,
+          page: page_params.page,
+          page_size: page_params.page_size
+        )
+    )
   end
 end
