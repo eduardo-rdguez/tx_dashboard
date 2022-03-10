@@ -129,6 +129,7 @@ defmodule TxDashboard.Dashboard.Transactions do
     Transaction
     |> join(:inner, [a], assoc(a, :account), as: :account)
     |> where([account: a], a.account == ^account_number)
+    |> order_by([desc: :inserted_at])
     |> Repo.paginate(page_params)
   end
 end

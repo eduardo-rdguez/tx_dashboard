@@ -15,6 +15,7 @@
       <th>Concept</th>
       <th>Amount</th>
       <th>Currency</th>
+      <th>Operation time</th>
     </tr>
   </thead>
   <tbody id="transactions">
@@ -25,6 +26,7 @@
         <td><%= transaction.concept %></td>
         <td><%= transaction.amount %></td>
         <td><%= transaction.currency %></td>
+        <td><%= transaction.inserted_at %></td>
       </tr>
     <% end %>
   </tbody>
