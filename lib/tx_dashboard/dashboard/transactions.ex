@@ -125,10 +125,10 @@ defmodule TxDashboard.Dashboard.Transactions do
     Phoenix.PubSub.broadcast(TxDashboard.PubSub, @topic <> ":" <> account_number, transaction)
   end
 
-  def find_all_by_account_number(account_number) do
+  def list_by_account_number(account_number, page_params \\ %{}) do
     Transaction
     |> join(:inner, [a], assoc(a, :account), as: :account)
     |> where([account: a], a.account == ^account_number)
-    |> Repo.all()
+    |> Repo.paginate(page_params)
   end
 end
