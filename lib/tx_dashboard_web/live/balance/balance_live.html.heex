@@ -1,5 +1,12 @@
 <h1>Balances for <%= @account_number %></h1>
 
+<div>
+  Page size:
+  <%= for s <- @size_pages do %>
+    <%= live_patch "#{s}", to: Routes.balance_path(@socket, :index, @account_number, page_size: s) %>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
