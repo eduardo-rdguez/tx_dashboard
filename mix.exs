@@ -20,7 +20,7 @@ defmodule TxDashboard.MixProject do
   def application do
     [
       mod: {TxDashboard.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :amqp, :scrivener_ecto]
     ]
   end
 
