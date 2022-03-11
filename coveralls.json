@@ -1,0 +1,7 @@
+{
+  "skip_files": [
+    "test",
+    "deps",
+    "lib/tx_dashboard_web"
+  ]
+}
