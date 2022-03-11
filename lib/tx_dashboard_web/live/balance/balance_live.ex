@@ -15,7 +15,6 @@ defmodule TxDashboardWeb.Balance.BalanceLive do
       socket
       |> assign(
         account_number: account_number,
-        transactions: [],
         size_pages: @size_pages
       )
 
@@ -50,6 +49,16 @@ defmodule TxDashboardWeb.Balance.BalanceLive do
     socket =
       socket.assigns.page_params
       |> Map.replace!(:page, String.to_integer(page))
+      |> push_params(socket)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("select-page-size", %{"page-size" => page_size}, socket) do
+    socket =
+      socket.assigns.page_params
+      |> Map.replace!(:page_size, String.to_integer(page_size))
       |> push_params(socket)
 
     {:noreply, socket}

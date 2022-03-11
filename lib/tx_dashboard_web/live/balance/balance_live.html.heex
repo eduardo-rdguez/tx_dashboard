@@ -1,11 +1,11 @@
 <h1>Balances for <%= @account_number %></h1>
 
-<div>
-  Page size:
-  <%= for s <- @size_pages do %>
-    <%= live_patch "#{s}", to: Routes.balance_path(@socket, :index, @account_number, page_size: s) %>
-  <% end %>
-</div>
+<form phx-change="select-page-size">
+  Show
+  <select name="page-size">
+    <%= options_for_select(@size_pages, @page_params.page_size) %>
+  </select>
+</form>
 
 <table>
   <thead>
