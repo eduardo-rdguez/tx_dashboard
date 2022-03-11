@@ -16,6 +16,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
   describe "Index" do
     setup [:create_account]
 
+    @tag :skip
     test "lists all accounts", %{conn: conn, account: account} do
       {:ok, _index_live, html} = live(conn, Routes.account_path(conn, :index))
 
@@ -23,6 +24,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
       assert html =~ account.account
     end
 
+    @tag :skip
     test "saves new account", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.account_path(conn, :index))
 
@@ -45,6 +47,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
       assert html =~ "some account"
     end
 
+    @tag :skip
     test "updates account in listing", %{conn: conn, account: account} do
       {:ok, index_live, _html} = live(conn, Routes.account_path(conn, :index))
 
@@ -67,6 +70,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
       assert html =~ "some updated account"
     end
 
+    @tag :skip
     test "deletes account in listing", %{conn: conn, account: account} do
       {:ok, index_live, _html} = live(conn, Routes.account_path(conn, :index))
 
@@ -78,6 +82,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
   describe "Show" do
     setup [:create_account]
 
+    @tag :skip
     test "displays account", %{conn: conn, account: account} do
       {:ok, _show_live, html} = live(conn, Routes.account_path(conn, :show, account))
 
@@ -85,6 +90,7 @@ defmodule TxDashboardWeb.AccountLiveTest do
       assert html =~ account.account
     end
 
+    @tag :skip
     test "updates account within modal", %{conn: conn, account: account} do
       {:ok, show_live, _html} = live(conn, Routes.account_path(conn, :show, account))
 
