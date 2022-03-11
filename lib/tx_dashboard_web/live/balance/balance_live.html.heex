@@ -1,39 +1,10 @@
 <h1>Balances for <%= @account_number %></h1>
 
-<form phx-change="select-page-size">
-  Show
-  <select name="page-size">
-    <%= options_for_select(@size_pages, @page_params.page_size) %>
-  </select>
-</form>
-
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Origin</th>
-      <th>Concept</th>
-      <th>Amount</th>
-      <th>Currency</th>
-      <th>Operation time</th>
-    </tr>
-  </thead>
-  <tbody id="transactions">
-    <%= for transaction <- @transactions do %>
-      <tr id={"transaction-#{transaction.id}"}>
-        <td><%= transaction.type %></td>
-        <td><%= transaction.origin %></td>
-        <td><%= transaction.concept %></td>
-        <td><%= transaction.amount %></td>
-        <td><%= transaction.currency %></td>
-        <td><%= transaction.inserted_at %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<button class="button-clear" {[disabled: @page_params.page <= 1, phx_click: "paginate", phx_value_page: @page_params.page - 1]}>Previous</button>
-<%= for p <- (@page_params.page - 2)..(@page_params.page + 2), p > 0 and p <= @page_params.total_pages do %>
-  <button class="button-clear" {[disabled: @page_params.page == p, phx_click: "paginate", phx_value_page: p]}><%= p %></button>
-<% end %>
-<button class="button-clear" {[disabled: @page_params.page >= @page_params.total_pages, phx_click: "paginate", phx_value_page: @page_params.page + 1]}>Next</button>
+<.live_component
+  module={TxDashboardWeb.Balance.Components.BalanceTableComponent}
+  id="transactions"
+  account_number={@account_number}
+  page_params={@page_params}
+  columns={@headers}
+  rows={@transactions}
+/>
