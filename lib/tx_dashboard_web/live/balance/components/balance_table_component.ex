@@ -1,17 +1,6 @@
 defmodule TxDashboardWeb.Balance.Components.BalanceTableComponent do
   use TxDashboardWeb, :live_component
 
-  @size_pages [5, 10, 15]
-
-  @impl true
-  def mount(socket) do
-    socket =
-      socket
-      |> assign(:size_pages, @size_pages)
-
-    {:ok, socket}
-  end
-
   @impl true
   def handle_event("paginate", %{"page" => page}, socket) do
     socket =

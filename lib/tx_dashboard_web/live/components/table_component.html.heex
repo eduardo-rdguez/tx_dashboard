@@ -1,4 +1,22 @@
 <div>
+  <div class="row">
+    <div class="column-50">
+      <button class="button-clear" {[disabled: @page_params.page <= 1, phx_click: "paginate", phx_value_page: @page_params.page - 1, phx_target: "##{@target}"]}>Previous</button>
+      <%= for p <- (@page_params.page - 2)..(@page_params.page + 2), p > 0 and p <= @page_params.total_pages do %>
+        <button class="button-clear" {[disabled: @page_params.page == p, phx_click: "paginate", phx_value_page: p, phx_target: "##{@target}"]}><%= p %></button>
+      <% end %>
+      <button class="button-clear" {[disabled: @page_params.page >= @page_params.total_pages, phx_click: "paginate", phx_value_page: @page_params.page + 1, phx_target: "##{@target}"]}>Next</button>
+    </div>
+    <div class="column-50">
+      <form phx-change="select-page-size" phx-target={"##{@target}"}>
+        Show
+        <select name="page-size">
+          <%= options_for_select(@size_pages, @page_params.page_size) %>
+        </select>
+      </form>
+    </div>
+  </div>
+
   <table id={"table-#{@id}"}>
     <thead>
       <tr>
