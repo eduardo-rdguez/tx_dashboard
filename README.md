@@ -14,6 +14,14 @@ Run a RabbitMQ Docker image in a container:
 docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
 ```
 
+### Sending
+
+Start `bunny_producer.rb` to send transaction messages to RabbitMQ:
+
+```sh
+ruby bunny_producer.rb
+```
+
 ## PostgreSQL
 
 Run a Postgres Docker image in a container:
@@ -39,7 +47,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 * Docs: <https://hexdocs.pm/phoenix>
 * Forum: <https://elixirforum.com/c/phoenix-forum>
 * Source: <https://github.com/phoenixframework/phoenix>
-* RabbitMQ: <https://www.rabbitmq.com/tutorials/tutorial-one-python.html>
+* RabbitMQ: <https://www.rabbitmq.com/tutorials/tutorial-one-ruby.html>
 
 ## Author
 
